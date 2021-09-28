@@ -7,10 +7,12 @@ services:
       args:
         - NODE_ENV=development
     user: node
+    #user: root
     environment:
       - NODE_ENV=development
     tty: true
     ports:
+      - 9080:9080
       - 19006:19006
       - 19001:19001
       - 19002:19002

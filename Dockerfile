@@ -1,4 +1,5 @@
-FROM node:14-slim
+#FROM node:14-slim
+FROM node:14-buster
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run
@@ -6,9 +7,18 @@ ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
 # default to port 3000 for node, and 9229 and 9230 (tests) for debug
-ARG PORT=3000
+ARG PORT=9080
 ENV PORT $PORT
 EXPOSE $PORT 9229 9230
+
+RUN apt-get update -y && \
+    apt-get install -y \
+        libnss3 \
+        libgtk-3-0 \
+        libx11-xcb1 \
+        libxss1 \
+        libasound2 \
+        && rm -rf /var/lib/apt/lists/*
 
 # make directory as root and change permissions
 RUN mkdir /opt/app && chown node:node /opt/app
@@ -18,7 +28,7 @@ RUN mkdir /opt/app && chown node:node /opt/app
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH /home/node/.npm-global/bin:$PATH
 USER node
-RUN npm i --loglevel=error --global npm@latest expo-cli@latest vue-native-cli@latest
+RUN npm i --loglevel=error --global npm@latest expo-cli@latest vue-native-cli@latest electron@latest
 
 # install dependencies first, in a different location for easier app bind mounting for local development
 # https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#non-root-user
