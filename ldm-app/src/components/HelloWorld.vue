@@ -99,6 +99,7 @@
 
     <v-main>
       <!--  -->
+      <Table />
     </v-main>
 
     <v-footer
@@ -120,7 +121,11 @@
 </template>
 
 <script>
+  import Table from '@/components/Table.vue'
   export default {
     data: () => ({ drawer: null }),
+    components: {
+      Table
+    }
   }
 </script>
