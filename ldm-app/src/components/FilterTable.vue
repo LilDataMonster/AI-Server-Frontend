@@ -34,6 +34,8 @@
           },
           { text: 'Material', value: 'material' },
           { text: 'Hex Color', value: 'hexCode' },
+          { text: 'BL Color Name', value: 'blColorName' },
+          { text: 'LDraw ID', value: 'ldrawColorId' },
         ],
       }
     },
